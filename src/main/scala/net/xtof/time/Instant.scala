@@ -24,11 +24,18 @@ case class Instant(millisSinceEpoch: Long) {
 
   override def toString = InstantWriter.readable.write(this)
 
-  def +(timeSpan: TimeSpan): Instant = timeSpan.addTo(this)
+  def isBefore(instant: Instant): Boolean = this.millisSinceEpoch < instant.millisSinceEpoch
 
-  def -(other: Instant): Duration = new Duration(this.millisSinceEpoch - other.millisSinceEpoch)
+  def plus(timeSpan: TimeSpan): Instant = timeSpan.addTo(this)
 
-  def <(dateTime: Instant): Boolean = this.millisSinceEpoch < dateTime.millisSinceEpoch
+  def minus(other: Instant): Duration = new Duration(this.millisSinceEpoch - other.millisSinceEpoch)
+
+
+  def <(instant: Instant): Boolean = this.isBefore(instant)
+
+  def +(timeSpan: TimeSpan): Instant = this.plus(timeSpan)
+
+  def -(instant: Instant): Duration = this.minus(instant)
 
   def to(end: Instant): Interval =
     Interval(this, end)
