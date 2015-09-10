@@ -12,7 +12,7 @@ object Main {
     val x = Instant(1967, 5, 6)
     val y = Period.Months(1) - Period.Days(1)
 
-    val z = x + y
+    val z: Instant = x + y
     println(z)
   }
 

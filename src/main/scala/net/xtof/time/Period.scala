@@ -1,7 +1,6 @@
 package net.xtof.time
 
 
-
 case class Period(preciseMilliseconds: Long, months: Int = 0, years: Int = 0) extends TimeSpan {
 
   override def addTo(instant: Instant): Instant = {
