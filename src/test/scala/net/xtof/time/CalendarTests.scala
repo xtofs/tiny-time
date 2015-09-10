@@ -35,7 +35,7 @@ class CalendarPropertyTests extends FunSuite with ShouldMatchers {
 
   test("samples") {
     forAll(samples) { (i: Instant, y: Int, m: Int, d: Int, h: Int, n: Int, s: Int, z: Int) => {
-      println(i)
+      println(i, y, m, d, h, n, s, z)
 
       i.year should be === y
       i.month should be === m
@@ -80,7 +80,7 @@ class CalendarTests extends FunSuite with Checkers {
   }
 
   implicit val oneDayAfter_2_28 =
-    Gen.choose(1970, 4000).map(y => Calendar.millisecondsSinceEpoch(y, 2, 28) + Calendar.MillisecondsPerDay)
+    Gen.choose(1970, 4000).map(y => Calendar.millisecondsSinceEpoch(y, 2, 28) + Constants.MillisecondsPerDay)
 
   test("february has 29 days in leap year") {
     check(

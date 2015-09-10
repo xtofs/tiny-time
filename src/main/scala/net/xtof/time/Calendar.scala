@@ -8,11 +8,6 @@ object Calendar {
 
   final val Epoch = Instant(0)
 
-  val MillisecondsPerSecond = 1000L
-  val MillisecondsPerMinute = 60L * MillisecondsPerSecond
-  val MillisecondsPerHour = 60L * MillisecondsPerMinute
-  val MillisecondsPerDay = 24L * MillisecondsPerHour
-
   private val julianDayNumberJan1st0001 = 1721424
   //  private val julianDayNumberJan1st1970 = 2440588
   //  private val julianDayNumberJan1st2000 = 2451545
@@ -28,7 +23,7 @@ object Calendar {
     val d = (153 * m + 2) / 5 // gives the number of days since March 1 and comes from the repetition of days in the month from March in groups of five
     val j = day + d + (365 * y) + (y / 4) - (y / 100) + (y / 400) - 32045
 
-    val ms = (j - julianDayNumberJan1st0001).toLong * MillisecondsPerDay
+    val ms = (j - julianDayNumberJan1st0001).toLong * Constants.MillisecondsPerDay
     ms
   }
 
@@ -36,7 +31,7 @@ object Calendar {
     if (millisecondsSinceEpoch < 0)
       throw new IllegalArgumentException
 
-    val jd = (millisecondsSinceEpoch / MillisecondsPerDay).toInt + julianDayNumberJan1st0001
+    val jd = (millisecondsSinceEpoch /Constants.MillisecondsPerDay).toInt + julianDayNumberJan1st0001
 
     val f = jd + 1401 + (((4 * jd + 274277) / 146097) * 3) / 4 - 38
     val e = 4 * f + 3
@@ -51,6 +46,6 @@ object Calendar {
   }
 
   private[time] def dayOfWeek(millisecondsSinceEpoch: Long): Int = {
-    ((millisecondsSinceEpoch / MillisecondsPerDay + 5).toInt % 7) + 1
+    ((millisecondsSinceEpoch / Constants.MillisecondsPerDay + 5).toInt % 7) + 1
   }
 }

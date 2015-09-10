@@ -6,7 +6,7 @@ case class Period(preciseMilliseconds: Long, months: Int = 0, years: Int = 0) ex
   override def addTo(instant: Instant): Instant = {
 
     val (y, m, d) = Calendar.dateParts(instant.millisSinceEpoch)
-    val ms = instant.millisSinceEpoch % Calendar.MillisecondsPerDay
+    val ms = instant.millisSinceEpoch % Constants.MillisecondsPerDay
     // the sum of y, m, d, and ms are conceptually the instant but are measured in their respective "units of measure"
 
     // add y, m, d, and ms to the respective parts of the this period
@@ -25,6 +25,8 @@ case class Period(preciseMilliseconds: Long, months: Int = 0, years: Int = 0) ex
   def - (that: Period): Period = this.minus(that)
 
   // @formatter:off
+  // TODO: use the Constants object instead of these constants
+  // TODO: investigate if this and the similar code in Duration can be factored out
   def millis  : Int = (preciseMilliseconds % 1000 ).toInt
   def seconds : Int = (preciseMilliseconds / 1000 % 60 ).toInt
   def minutes : Int = (preciseMilliseconds / 1000 / 60 % 60 ).toInt
@@ -46,13 +48,13 @@ object Period {
   //  private case class Years(n: Int) extends Period
   //  private case class Combined(p: Precise, months: Months, years: Years) extends Period
 
-  def Minutes(n: Int): Period = Period(n * Calendar.MillisecondsPerMinute)
+  def Minutes(n: Int): Period = Period(n * Constants.MillisecondsPerMinute)
 
-  def Hours(n: Int): Period = Period(n * Calendar.MillisecondsPerHour)
+  def Hours(n: Int): Period = Period(n * Constants.MillisecondsPerHour)
 
-  def Days(n: Int): Period = Period(n * Calendar.MillisecondsPerDay)
+  def Days(n: Int): Period = Period(n * Constants.MillisecondsPerDay)
 
-  def Weeks(n: Int): Period = Period(n * Calendar.MillisecondsPerDay * 7)
+  def Weeks(n: Int): Period = Period(n * Constants.MillisecondsPerDay * 7)
 
   def Months(n: Int): Period = Period(0, n)
 

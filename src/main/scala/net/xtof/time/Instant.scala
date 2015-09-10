@@ -3,7 +3,7 @@ package net.xtof.time
 
 case class Instant(millisSinceEpoch: Long) {
 
-  def get(dateTimePart: InstantField): Int = dateTimePart.extract(this)
+  def get(field: InstantField): Int = field.extract(this)
 
   def milliseconds = get(InstantField.MillisecondsOfSecond)
 
@@ -54,8 +54,8 @@ object Instant {
 
   private def timeInMilliseconds(hour: Int, minute: Int, seconds: Int, milliseconds: Int) =
     milliseconds +
-      seconds * Calendar.MillisecondsPerSecond +
-      minute * Calendar.MillisecondsPerMinute +
-      hour * Calendar.MillisecondsPerHour
+      seconds * Constants.MillisecondsPerSecond +
+      minute * Constants.MillisecondsPerMinute +
+      hour * Constants.MillisecondsPerHour
 
 }

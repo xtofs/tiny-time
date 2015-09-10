@@ -24,6 +24,8 @@ object InstantField {
   val Year:                 InstantField = CalendarInstantField(t => t._1)
   val MonthOfYear:          InstantField = CalendarInstantField(t => t._2)
   val DayOfMonth:           InstantField = CalendarInstantField(t => t._3)
+
+  // TODO: use Constants Object
   val HourOfDay:            InstantField = ExactInstantField(1000 * 60 * 60, 24)
   val MinuteOfHour:         InstantField = ExactInstantField(1000 * 60, 60)
   val SecondOfMinute:       InstantField = ExactInstantField(1000, 60)
