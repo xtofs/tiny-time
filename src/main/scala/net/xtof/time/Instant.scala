@@ -24,8 +24,7 @@ case class Instant(millisSinceEpoch: Long) {
 
   override def toString = InstantWriter.readable.write(this)
 
-
-  def +(timeSpan: Duration): Instant = new Instant(this.millisSinceEpoch + timeSpan.totalMilliseconds)
+  def +(timeSpan: TimeSpan): Instant = timeSpan.addTo(this)
 
   def -(other: Instant): Duration = new Duration(this.millisSinceEpoch - other.millisSinceEpoch)
 

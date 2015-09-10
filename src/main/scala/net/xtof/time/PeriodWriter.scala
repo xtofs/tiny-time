@@ -15,7 +15,7 @@ trait PeriodWriter {
 object PeriodWriter {
 
   val basic = new PeriodWriter {
-    override def write(p: Period): String = s"P${p.years}Y${p.months}MT${p.precise * 1000.0}S"
+    override def write(p: Period): String = s"P${p.years}Y${p.months}MT${p.preciseMilliseconds * 1000.0}S"
   }
 
   val normalized = new PeriodWriter {
@@ -27,7 +27,7 @@ object PeriodWriter {
       // @formatter:off
       val y = p.years; if (y > 0) { sb.append(y); sb.append("Y") }
       val o = p.months; if (o > 0) { sb.append(o); sb.append("M") }
-      if (p.precise > 0) {
+      if (p.preciseMilliseconds > 0) {
         val w = p.weeks; if (w > 0) { sb.append(w); sb.append("W") }
         val d = p.days; if (d > 0) { sb.append(d); sb.append("D") }
         sb.append("T")
@@ -35,7 +35,7 @@ object PeriodWriter {
         val m = p.minutes; if (m > 0) { sb.append(m); sb.append("M")}
 
         val s = p.seconds
-        val z = p.precise % 1000
+        val z = p.preciseMilliseconds % 1000
         if (s > 0 || z > 0) {
           if (z == 0) {
             sb.append(s)

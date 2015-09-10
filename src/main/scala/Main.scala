@@ -7,8 +7,17 @@ import net.xtof.time._
 object Main {
 
 
-  def main(args: Array[String]) {
+  def main(args: Array[String]): Unit = {
 
+    val x = Instant(1967, 5, 6)
+    val y = Period.Months(1) - Period.Days(1)
+
+    val z = x + y
+    println(z)
+  }
+
+  def test()
+  {
     val x = Instant.now
 
     val y = Instant(1967, 5, 6)
